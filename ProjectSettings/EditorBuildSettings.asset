@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/ClimbingTest.unity
     guid: 5a7a31a4d5ba64343af36fe92159814c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/OutdoorScene.unity
     guid: 7f91ecdaeb89afd4da229b4ba511f86b
   - enabled: 1
