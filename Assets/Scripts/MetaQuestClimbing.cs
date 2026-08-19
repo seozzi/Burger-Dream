@@ -8,7 +8,8 @@ public class MetaQuestClimbing : MonoBehaviour
         public Transform controller;
         public OVRInput.Controller inputController;
 
-        [HideInInspector] public bool touchingClimbable;
+        // 수정됨: bool 대신 어떤 물체와 닿았는지 정확히 추적합니다.
+        [HideInInspector] public GameObject touchedClimbable;
         [HideInInspector] public bool gripping;
         [HideInInspector] public Vector3 lastLocalPosition;
     }
@@ -74,7 +75,8 @@ public class MetaQuestClimbing : MonoBehaviour
         if (hand.controller == null)
             return;
 
-        hand.touchingClimbable = IsTouchingClimbable(hand);
+        // 수정됨: bool 반환에서 GameObject 반환으로 변경
+        hand.touchedClimbable = GetTouchedClimbable(hand);
 
         bool gripHeld = OVRInput.Get(
             OVRInput.Button.PrimaryHandTrigger,
@@ -82,14 +84,18 @@ public class MetaQuestClimbing : MonoBehaviour
         );
 
         // Start climbing
-        if (!hand.gripping && gripHeld && hand.touchingClimbable)
+        // 수정됨: touchedClimbable이 null이 아닐 때 작동하도록 조건 변경
+        if (!hand.gripping && gripHeld && hand.touchedClimbable != null)
         {
             hand.gripping = true;
-
-            // Important:
-            // Store LOCAL position so movement caused by moving the XR rig
-            // itself is not interpreted as controller movement.
             hand.lastLocalPosition = hand.controller.localPosition;
+
+            // [추가된 로직] 가짜 홀드인지 확인하고 낙하 루틴을 실행합니다.
+            FakeClimbingHold fakeHold = hand.touchedClimbable.GetComponentInParent<FakeClimbingHold>();
+            if (fakeHold != null)
+            {
+                fakeHold.TriggerFall(xrRig);
+            }
         }
 
         // Release
@@ -98,9 +104,8 @@ public class MetaQuestClimbing : MonoBehaviour
             hand.gripping = false;
         }
 
-        // If the hand is no longer touching a climbable surface,
-        // stop that hand from climbing.
-        if (hand.gripping && !hand.touchingClimbable)
+        // 손이 더 이상 등반 가능한 표면과 닿아있지 않으면 그립 해제
+        if (hand.gripping && hand.touchedClimbable == null)
         {
             hand.gripping = false;
         }
@@ -109,13 +114,11 @@ public class MetaQuestClimbing : MonoBehaviour
     private void ProcessClimbing()
     {
         int activeHands = 0;
-
         Vector3 totalMovement = Vector3.zero;
 
         if (left.gripping)
         {
             Vector3 movement = GetHandMovement(left);
-
             totalMovement += movement;
             activeHands++;
         }
@@ -123,7 +126,6 @@ public class MetaQuestClimbing : MonoBehaviour
         if (right.gripping)
         {
             Vector3 movement = GetHandMovement(right);
-
             totalMovement += movement;
             activeHands++;
         }
@@ -131,10 +133,7 @@ public class MetaQuestClimbing : MonoBehaviour
         if (activeHands == 0)
             return;
 
-        // Average movement when using two hands.
         Vector3 averageMovement = totalMovement / activeHands;
-
-        // Pull hand DOWN -> move player UP.
         Vector3 rigMovement = -averageMovement * climbMultiplier;
 
         if (verticalOnly)
@@ -143,11 +142,9 @@ public class MetaQuestClimbing : MonoBehaviour
             rigMovement.z = 0f;
         }
 
-        // Prevent accidental huge movement caused by tracking glitches.
         if (rigMovement.magnitude > maxMovementPerFrame)
         {
-            rigMovement =
-                rigMovement.normalized * maxMovementPerFrame;
+            rigMovement = rigMovement.normalized * maxMovementPerFrame;
         }
 
         xrRig.position += rigMovement;
@@ -155,41 +152,32 @@ public class MetaQuestClimbing : MonoBehaviour
 
     private Vector3 GetHandMovement(ClimbingHand hand)
     {
-        Vector3 currentLocalPosition =
-            hand.controller.localPosition;
+        Vector3 currentLocalPosition = hand.controller.localPosition;
+        Vector3 localMovement = currentLocalPosition - hand.lastLocalPosition;
 
-        Vector3 localMovement =
-            currentLocalPosition - hand.lastLocalPosition;
-
-        // Update immediately.
-        //
-        // Because this is LOCAL position, movement of the XR rig itself
-        // does not create artificial controller movement.
         hand.lastLocalPosition = currentLocalPosition;
 
-        // Convert controller-local movement into world movement.
-        Vector3 worldMovement =
-            xrRig.TransformVector(localMovement);
-
+        Vector3 worldMovement = xrRig.TransformVector(localMovement);
         return worldMovement;
     }
 
-    private bool IsTouchingClimbable(ClimbingHand hand)
+    // 수정됨: bool 반환에서 닿은 GameObject를 반환하도록 변경
+    private GameObject GetTouchedClimbable(ClimbingHand hand)
     {
         Collider[] colliders = Physics.OverlapSphere(
             hand.controller.position,
             grabRadius,
             climbableLayers,
-            QueryTriggerInteraction.Ignore
+            QueryTriggerInteraction.Ignore // 만약 Trigger를 켜서 쓴다면 이전 대화처럼 Collide로 변경하세요.
         );
 
         foreach (Collider collider in colliders)
         {
             if (collider.CompareTag(climbableTag))
-                return true;
+                return collider.gameObject;
         }
 
-        return false;
+        return null;
     }
 
     private void OnDrawGizmosSelected()
@@ -198,18 +186,12 @@ public class MetaQuestClimbing : MonoBehaviour
 
         if (leftHand != null)
         {
-            Gizmos.DrawWireSphere(
-                leftHand.position,
-                grabRadius
-            );
+            Gizmos.DrawWireSphere(leftHand.position, grabRadius);
         }
 
         if (rightHand != null)
         {
-            Gizmos.DrawWireSphere(
-                rightHand.position,
-                grabRadius
-            );
+            Gizmos.DrawWireSphere(rightHand.position, grabRadius);
         }
     }
 }
