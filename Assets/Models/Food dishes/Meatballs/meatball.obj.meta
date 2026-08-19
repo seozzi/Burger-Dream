@@ -1,79 +1,9 @@
 fileFormatVersion: 2
-guid: 604664dab07acb64fabe0dc9cbc976d9
+guid: 2f37483e9dbc28f41bfa9a24cf7c697a
 ModelImporter:
   serializedVersion: 24501
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Dumpling1Mat
-    second: {fileID: 2100000, guid: 7b89740407d48614d906d7a137a86c5f, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Dumpling2Mat
-    second: {fileID: 2100000, guid: 2660e4f4b4575c649af22275a7e89133, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Dumpling3Mat
-    second: {fileID: 2100000, guid: ec924794eef08f94d9f6830509a88f8f, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: DumplingMat
-    second: {fileID: 2100000, guid: 12a67b8a5ab447a4f9fd9b70de21a617, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: bottom_steamerMat
-    second: {fileID: 2100000, guid: e9973f65dd306514aad6bd1f61bfb287, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: chopstick1_chopstickMat
-    second: {fileID: 2100000, guid: 440e1d1bc10ae0a4a8cdd434eed442ca, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: chopstick_chopstickMat
-    second: {fileID: 2100000, guid: 70e39073c7919004ab70d7fd1bf5e9cc, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: group1_pCube8Mat
-    second: {fileID: 2100000, guid: 150f1840a3a39a5458df4af134504097, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: pCube5Mat
-    second: {fileID: 2100000, guid: f3b19c7419517dd48a872fc87068f511, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: pCube7_group1Mat
-    second: {fileID: 2100000, guid: 7bb78e542e273514bbc4785004df0ee8, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: pCube9Mat
-    second: {fileID: 2100000, guid: 874e0f4b4838d254bb15dbc618505588, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: pCylinder22Mat
-    second: {fileID: 2100000, guid: e3ae2a211b6232e40ad7a6741a79b0b5, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: pDisc1Mat
-    second: {fileID: 2100000, guid: a070474a5d5fe124ca5f095d407031ae, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: top_streamerMat
-    second: {fileID: 2100000, guid: 064e2235fcc1d0441afddbdbfa0887f4, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
