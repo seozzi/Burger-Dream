@@ -1831,7 +1831,7 @@ MonoBehaviour:
   doorOpenSound: {fileID: 8300000, guid: 68b897df3a8b147ad825b48e9fc3c848, type: 3}
   pushDuration: 0.2
   pushDistance: -3
-  pushSound: {fileID: 8300000, guid: 4617a37feb56142c99ac41722f452feb, type: 3}
+  pushSound: {fileID: 8300000, guid: 63f521715a94548dd874a96bfc68bb77, type: 3}
   delayAfterPush: 1
   doorCloseDelay: 0.8
   doorCloseSound: {fileID: 8300000, guid: a6682eaf9941d45d6a83365e6016fc33, type: 3}
