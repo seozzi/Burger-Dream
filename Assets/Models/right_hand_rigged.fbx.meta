@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2c3a1c261cf884db2bcc97062039c502
+guid: 2b1c5285f80114b8a851cfe5eae13c44
 ModelImporter:
   serializedVersion: 24501
   internalIDToNameTable: []
@@ -36,14 +36,14 @@ ModelImporter:
       takeName: Armature|ArmatureAction
       internalID: 4781951162920444690
       firstFrame: 0
-      lastFrame: 0
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -61,10 +61,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Pose_Grip
+      name: Pose_Trigger
       takeName: Armature|ArmatureAction
-      internalID: -1246731831762816583
-      firstFrame: 19
+      internalID: -2674958278859614444
+      firstFrame: 18
       lastFrame: 19
       wrapMode: 0
       orientationOffsetY: 0
@@ -72,7 +72,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

@@ -1,38 +1,40 @@
 using UnityEngine;
 using UnityEngine.XR;
 
-/// <summary>
-/// Attaches a hand model to an XR Controller and drives its
-/// grip posture via an Animator blend tree.
-/// </summary>
 [RequireComponent(typeof(Animator))]
 public class HandController : MonoBehaviour
 {
     public enum HandType { Left, Right }
 
     [Header("References")]
-    [Tooltip("Assign the Left/Right Controller from your XR Origin")]
     [SerializeField] private Transform controllerAnchor;
     [SerializeField] private HandType handType = HandType.Right;
 
     [Header("Calibration Offset")]
-    [Tooltip("Local offset from the controller anchor to the model's grip point")]
     [SerializeField] private Vector3 positionOffset;
-    [SerializeField] private Vector3 rotationOffsetEuler;
 
     [Header("Grip Feel")]
-    [Tooltip("How fast the posture blends toward its target value")]
     [SerializeField] private float gripBlendSpeed = 12f;
 
     private Animator animator;
-    private static readonly int GripParam = Animator.StringToHash("Grip");
+    private static readonly int TriggerParam = Animator.StringToHash("Trigger");
 
-    private float currentGrip;
+    private float currentTrigger;
     private bool isClimbGripping;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        if (controllerAnchor == null)
+        {
+            string controllerName = handType == HandType.Left ? "Left Controller" : "Right Controller";
+            GameObject controllerObject = GameObject.Find(controllerName);
+            if (controllerObject != null) controllerAnchor = controllerObject.transform;
+        }
     }
 
     private void Update()
@@ -46,33 +48,40 @@ public class HandController : MonoBehaviour
         if (controllerAnchor == null) return;
 
         transform.position = controllerAnchor.TransformPoint(positionOffset);
-        transform.rotation = controllerAnchor.rotation * Quaternion.Euler(rotationOffsetEuler);
+        transform.rotation = controllerAnchor.rotation;
     }
 
     private void UpdatePosture()
     {
-        float targetGrip = 0f;
+        float targetTrigger = 0f;
 
         if (isClimbGripping)
         {
-            targetGrip = 1f;
+            targetTrigger = 1f;
         }
         else
         {
-            // OVRInput 대신 유니티 표준 범용 XR 입력을 사용합니다!
             XRNode node = handType == HandType.Left ? XRNode.LeftHand : XRNode.RightHand;
             InputDevice device = InputDevices.GetDeviceAtXRNode(node);
 
-            // 컨트롤러의 Grip 트리거 값을 가져옵니다
-            if (device.TryGetFeatureValue(CommonUsages.grip, out float gripValue))
+            if (device.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue))
             {
-                targetGrip = gripValue;
+                targetTrigger = triggerValue;
+
+                if (triggerValue > 0.05f)
+                {
+                    Debug.Log($"[{handType}] 검지 Trigger 값: {triggerValue}");
+                }
             }
         }
 
-        currentGrip = Mathf.MoveTowards(currentGrip, targetGrip, gripBlendSpeed * Time.deltaTime);
-        animator.SetFloat(GripParam, currentGrip);
+        currentTrigger = Mathf.MoveTowards(currentTrigger, targetTrigger, gripBlendSpeed * Time.deltaTime);
+        animator.SetFloat(TriggerParam, currentTrigger);
     }
+
+    // =================================================================
+    // 🚨 아래부터가 다른 스크립트(Climbing 등)와 통신하기 위해 꼭 필요한 함수들입니다! 🚨
+    // =================================================================
 
     public void SetClimbGripping(bool gripping)
     {
@@ -80,7 +89,9 @@ public class HandController : MonoBehaviour
     }
 
     public bool IsClimbGripping => isClimbGripping;
-    public float CurrentGrip => currentGrip;
+
+    // 외부에서 Grip(Trigger) 값을 요구할 때 현재 값을 넘겨줍니다.
+    public float CurrentGrip => currentTrigger;
 
     public float RawGripInput
     {
@@ -88,9 +99,10 @@ public class HandController : MonoBehaviour
         {
             XRNode node = handType == HandType.Left ? XRNode.LeftHand : XRNode.RightHand;
             InputDevice device = InputDevices.GetDeviceAtXRNode(node);
-            if (device.TryGetFeatureValue(CommonUsages.grip, out float gripValue))
+
+            if (device.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue))
             {
-                return gripValue;
+                return triggerValue;
             }
             return 0f;
         }
