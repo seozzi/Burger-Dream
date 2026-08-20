@@ -964,6 +964,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   normalClimbingSound: {fileID: 8300000, guid: 5bb6af26a363f074ebc0e33287fecf7f, type: 3}
   slippingSound: {fileID: 8300000, guid: e61d1b12ecafdf84095c0ac59368265d, type: 3}
+  climbingBGM: {fileID: 8300000, guid: 7201170098e9143458ad85dd7f03df99, type: 3}
 --- !u!4 &171182837 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 071c2d81c77c67e47ac682ee8080fb92, type: 3}
@@ -5497,6 +5498,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9777104bb43e433d9ba90df6484734d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
+  sfxSource: {fileID: 0}
+  bgmSource: {fileID: 0}
 --- !u!4 &777629630
 Transform:
   m_ObjectHideFlags: 0
@@ -8082,7 +8085,13 @@ MonoBehaviour:
   restaurantEnvironment: {fileID: 234293065}
   explosionEffect: {fileID: 655769796}
   explosionSound: {fileID: 8300000, guid: 854ded900dcead0479dd38a0ffee7f86, type: 3}
-  burgerCenter: {fileID: 1113977025}
+  celebrationBGM: {fileID: 8300000, guid: 24c834719843e9247adea40fc566b40b, type: 3}
+  celebrationOMans:
+  - {fileID: 1835303660}
+  - {fileID: 664315552}
+  - {fileID: 840240781}
+  - {fileID: 1645646951}
+  - {fileID: 1413729977}
   baconSlidePrefab: {fileID: 8919934127225428127, guid: a11cf565281f4864d8fe72333eaa8dfd, type: 3}
   foodPrefabs:
   - {fileID: 7199630224970343980, guid: 02e1dd77e209447f29cc15e03047d226, type: 3}
