@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01
@@ -964,7 +964,6 @@ MonoBehaviour:
     m_Bits: 4294967295
   normalClimbingSound: {fileID: 8300000, guid: 5bb6af26a363f074ebc0e33287fecf7f, type: 3}
   slippingSound: {fileID: 8300000, guid: e61d1b12ecafdf84095c0ac59368265d, type: 3}
-  climbingBGM: {fileID: 8300000, guid: 7201170098e9143458ad85dd7f03df99, type: 3}
 --- !u!4 &171182837 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 071c2d81c77c67e47ac682ee8080fb92, type: 3}
@@ -5498,8 +5497,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9777104bb43e433d9ba90df6484734d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
-  sfxSource: {fileID: 777629628}
-  bgmSource: {fileID: 777629631}
 --- !u!4 &777629630
 Transform:
   m_ObjectHideFlags: 0
@@ -8085,13 +8082,27 @@ MonoBehaviour:
   restaurantEnvironment: {fileID: 234293065}
   explosionEffect: {fileID: 655769796}
   explosionSound: {fileID: 8300000, guid: 854ded900dcead0479dd38a0ffee7f86, type: 3}
-  celebrationBGM: {fileID: 8300000, guid: 24c834719843e9247adea40fc566b40b, type: 3}
-  celebrationOMans:
-  - {fileID: 1835303660}
-  - {fileID: 664315552}
-  - {fileID: 840240781}
-  - {fileID: 1645646951}
-  - {fileID: 1413729977}
+  burgerCenter: {fileID: 1113977025}
+  baconSlidePrefab: {fileID: 8919934127225428127, guid: a11cf565281f4864d8fe72333eaa8dfd, type: 3}
+  foodPrefabs:
+  - {fileID: 7199630224970343980, guid: 02e1dd77e209447f29cc15e03047d226, type: 3}
+  - {fileID: 1249056900523863525, guid: 340a8b9225a034c8f946796fb3a0efd8, type: 3}
+  - {fileID: 4238048899354963682, guid: dc935e771fab34ef9bfc3ba42effc2af, type: 3}
+  - {fileID: 4534155033423605659, guid: 34f15349c8d8d4df29e7a1e3e8f0b41e, type: 3}
+  - {fileID: 5097913623094133083, guid: d80c13b83e9974dc080ef584b5599009, type: 3}
+  - {fileID: 4825530097264145817, guid: 1a34f4bd12aa74b4eb478736bc8b0020, type: 3}
+  - {fileID: 7377551060003274573, guid: f3b8e5f9ae56749fb9f7ee4ec2287bc4, type: 3}
+  - {fileID: 5466343043440503129, guid: dece2df08087e458d936a534c8d675a3, type: 3}
+  foodNames:
+  - Dumpling
+  - IceCream
+  - Meatball
+  - Pizza
+  - Salad
+  - ScrambledEgg
+  - Sushi
+  - Tteokbokki
+  textLabelPrefab: {fileID: 5376935034856838711, guid: 5d4ea7754c4c44328aa28d2e34a98113, type: 3}
 --- !u!4 &1016872516
 Transform:
   m_ObjectHideFlags: 0
