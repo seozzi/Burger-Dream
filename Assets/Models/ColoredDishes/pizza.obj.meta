@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 0b93dc54bc2cd9a48a17de50456515c0
+guid: 6b4d0fe741c254531b524c8147dcdcb7
 ModelImporter:
   serializedVersion: 24501
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Food_Color_mat
-    second: {fileID: 2100000, guid: 5a758fc2a34ec40c480e6057441f0000, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
