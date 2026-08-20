@@ -2,31 +2,40 @@ using UnityEngine;
 
 public class FinaleManager : MonoBehaviour
 {
-    [Header("오브젝트 할당")]
+    [Header("폭발 설정")]
     public GameObject restaurantEnvironment;
     public ParticleSystem explosionEffect;
+    public AudioClip explosionSound;
 
-    [Header("사운드 할당")]
-    public AudioClip explosionSound; // 인스펙터에서 할당할 펑 소리 파일
+    [Header("축하 사절단 설정")]
+    // 씬에 미리 배치해 둔 O Man 오브젝트들을 연결할 배열입니다.
+    public GameObject[] celebrationOMans; 
 
     public void TriggerRestaurantExplosion()
     {
-        // 1. 폭발 파티클 재생
-        if (explosionEffect != null)
+        // 1. 기존 폭발 로직
+        if (explosionEffect != null) explosionEffect.Play();
+        if (restaurantEnvironment != null) restaurantEnvironment.SetActive(false);
+        if (explosionSound != null && SoundManager.Instance != null)
         {
-            explosionEffect.Play();
+            SoundManager.Instance.PlaySFX(explosionSound); //[cite: 1]
         }
 
-        // 2. 식당 오브젝트 비활성화 (화면에서 사라짐)
-        if (restaurantEnvironment != null)
-        {
-            restaurantEnvironment.SetActive(false);
-        }
+        // 2. 미리 배치된 축하 사절단 등장시키기
+        ShowCongratulators();
+    }
 
-        // 3. SoundManager를 통한 효과음 재생
-        if (explosionSound != null)
+    private void ShowCongratulators()
+    {
+        // 배열에 등록된 O Man 오브젝트들을 차례대로 활성화합니다.
+        foreach (GameObject oMan in celebrationOMans)
         {
-            SoundManager.Instance.PlaySFX(explosionSound); // 제공된 SoundManager의 PlaySFX 호출
+            if (oMan != null)
+            {
+                // 비활성화되어 있던 오브젝트를 켭니다. 
+                // 켜지는 순간 Animator가 작동하며 박수 애니메이션이 자동 재생됩니다.
+                oMan.SetActive(true); 
+            }
         }
     }
 }
