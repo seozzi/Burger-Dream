@@ -11,6 +11,9 @@ public class Act1Director : MonoBehaviour
     [SerializeField] private float moveDistance = 8f;
     [SerializeField] private AudioSource walkingAudioSource;
 
+    [Header("Dad Animation Control")]
+    [SerializeField] private Animator dadAnimator;
+
     [Header("2. Door & Push Sequence")]
     [SerializeField] private float delayBeforeDoorOpen = 1.0f;
     [SerializeField] private AudioClip doorOpenSound;
@@ -31,13 +34,14 @@ public class Act1Director : MonoBehaviour
     void Start()
     {
         if (burgerShop != null) startPosition = burgerShop.position;
+        if (dadAnimator != null) dadAnimator.SetBool("isWalking", true);
         StartCoroutine(PlayAct1Sequence());
     }
 
     IEnumerator PlayAct1Sequence()
     {
         // ==========================================
-        // SCENE 1: The Burger Shop approaches
+        // SCENE 1: The Burger Shop approaches & Dad walks / plays dialogues
         // ==========================================
         float elapsedTime = 0f;
         Vector3 finalShopPos = startPosition;
@@ -45,7 +49,14 @@ public class Act1Director : MonoBehaviour
         float zDirection = (startPosition.z > targetPlayer.position.z) ? -1f : 1f;
         finalShopPos.z = startPosition.z + (zDirection * moveDistance);
 
+        // Start walking audio, dad's walking animation, and the 3 directional dialogue sounds
         if (walkingAudioSource != null) walkingAudioSource.Play();
+        if (dadAnimator != null) dadAnimator.SetBool("isWalking", true);
+
+        if (DialogueSoundManager.Instance != null)
+        {
+            DialogueSoundManager.Instance.PlayOutdoorDialogues();
+        }
 
         while (elapsedTime < moveDuration)
         {
@@ -56,6 +67,9 @@ public class Act1Director : MonoBehaviour
 
         burgerShop.position = finalShopPos;
         if (walkingAudioSource != null) walkingAudioSource.Stop();
+
+        // 10 seconds are up: Stop dad's walking animation (transition to Idle)
+        if (dadAnimator != null) dadAnimator.SetBool("isWalking", false);
 
         // ==========================================
         // SCENE 2: Door Opens
@@ -91,7 +105,6 @@ public class Act1Director : MonoBehaviour
         // ==========================================
         // SCENE 4: LIGHTS OUT (Immediately after push ends)
         // ==========================================
-        // 💡 Turn off all lights right after the player is pushed inside
         Light[] allSceneLights = FindObjectsOfType<Light>();
         foreach (Light lightObj in allSceneLights)
         {
