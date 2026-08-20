@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: _144_RealCake
     second: {fileID: 2100000, guid: 7e882a716abb4ff4e9d727196769d976, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 100Avatars_144_RealCake
+    second: {fileID: 2800000, guid: bd6848d3203254799a8f3443ef94b187, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
