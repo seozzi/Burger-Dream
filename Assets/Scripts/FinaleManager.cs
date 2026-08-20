@@ -110,6 +110,20 @@ public class FinaleManager : MonoBehaviour
 
     private void SpawnSlidesAndFood()
     {
+        // 씬에서 "Burger" 이름을 가진 오브젝트를 자동으로 탐색합니다.
+        Transform burgerCenter = null;
+        GameObject burgerObj = GameObject.Find("Burger");
+        if (burgerObj != null)
+        {
+            burgerCenter = burgerObj.transform;
+        }
+        else
+        {
+            // 만약 "Burger"라는 이름이 없다면 매니저 자신의 위치를 임시 중앙으로 사용
+            burgerCenter = this.transform;
+            Debug.LogWarning("씬에서 'Burger' 오브젝트를 찾지 못해 FinaleManager의 위치를 중앙으로 사용합니다.");
+        }
+
         for (int i = 0; i < 8; i++)
         {
             float angleDeg = i * 45f;
