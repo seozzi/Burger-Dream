@@ -1341,10 +1341,15 @@ MonoBehaviour:
   omanAnimator: {fileID: 437058484}
   cakemanSpeaker: {fileID: 1761841901}
   omanSpeaker: {fileID: 65156275}
-  cakemanDialogue: {fileID: 0}
-  omanDialogue: {fileID: 0}
+  cakemanDialogue: {fileID: 8300000, guid: d174de13e4f9c4542a6546562868f996, type: 3}
+  omanDialogue1: {fileID: 8300000, guid: e3f955152ed414aada29672f8f21fd87, type: 3}
+  omanDialogue2: {fileID: 8300000, guid: ed75060fccd7044e39ad898e3991a2a3, type: 3}
   cakemanAngryTrigger: doAngryPoint
-  omanActionTrigger: doOmanAction
+  omanSaysNoTrigger: saysNo
+  omanKillsTrigger: killsCakeman
+  omanIdleTrigger: isIdle
+  delayBeforeKick: 3
+  delayBeforeReturnToIdle: 2.5
 --- !u!4 &971941387
 Transform:
   m_ObjectHideFlags: 0
