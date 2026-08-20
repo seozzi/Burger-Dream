@@ -39,14 +39,16 @@ public class DialogueSoundManager : MonoBehaviour
     // Coroutine to handle directional sound playback with a 1.5-second delay
     IEnumerator PlayDialogueSequenceRoutine()
     {
+        yield return new WaitForSeconds(1f);
+
         // 1. Play Sound 1 from the LEFT
         if (sound1 != null && leftSource != null)
         {
             leftSource.PlayOneShot(sound1);
         }
 
-        // Wait for 1.5 seconds
-        yield return new WaitForSeconds(1.5f);
+        // Wait for 5 seconds
+        yield return new WaitForSeconds(4.5f);
 
         // 2. Play Sound 2 from the CENTER (Player's position)
         if (sound2 != null && centerSource != null)
@@ -54,8 +56,8 @@ public class DialogueSoundManager : MonoBehaviour
             centerSource.PlayOneShot(sound2);
         }
 
-        // Wait for 1.5 seconds
-        yield return new WaitForSeconds(1.5f);
+        // Wait for 3 seconds
+        yield return new WaitForSeconds(2f);
 
         // 3. Play Sound 3 from the RIGHT
         if (sound3 != null && rightSource != null)

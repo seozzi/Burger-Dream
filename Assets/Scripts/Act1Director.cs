@@ -11,6 +11,10 @@ public class Act1Director : MonoBehaviour
     [SerializeField] private float moveDistance = 8f;
     [SerializeField] private AudioSource walkingAudioSource;
 
+    [Header("Parents Animation Control")]
+    [SerializeField] private Animator dadAnimator;
+    [SerializeField] private Animator momAnimator;
+
     [Header("2. Door & Push Sequence")]
     [SerializeField] private float delayBeforeDoorOpen = 1.0f;
     [SerializeField] private AudioClip doorOpenSound;
@@ -31,13 +35,18 @@ public class Act1Director : MonoBehaviour
     void Start()
     {
         if (burgerShop != null) startPosition = burgerShop.position;
+
+        // 게임 시작 시 아빠와 엄마 모두 걷기 상태로 초기화
+        if (dadAnimator != null) dadAnimator.SetBool("isWalking", true);
+        if (momAnimator != null) momAnimator.SetBool("isWalking", true);
+
         StartCoroutine(PlayAct1Sequence());
     }
 
     IEnumerator PlayAct1Sequence()
     {
         // ==========================================
-        // SCENE 1: The Burger Shop approaches
+        // SCENE 1: The Burger Shop approaches & Parents walk / play dialogues
         // ==========================================
         float elapsedTime = 0f;
         Vector3 finalShopPos = startPosition;
@@ -45,7 +54,15 @@ public class Act1Director : MonoBehaviour
         float zDirection = (startPosition.z > targetPlayer.position.z) ? -1f : 1f;
         finalShopPos.z = startPosition.z + (zDirection * moveDistance);
 
+        // Start walking audio, parents' walking animations, and the 3 directional dialogue sounds
         if (walkingAudioSource != null) walkingAudioSource.Play();
+        if (dadAnimator != null) dadAnimator.SetBool("isWalking", true);
+        if (momAnimator != null) momAnimator.SetBool("isWalking", true); // 엄마 걷기 애니메이션 실행
+
+        if (DialogueSoundManager.Instance != null)
+        {
+            DialogueSoundManager.Instance.PlayOutdoorDialogues();
+        }
 
         while (elapsedTime < moveDuration)
         {
@@ -56,6 +73,10 @@ public class Act1Director : MonoBehaviour
 
         burgerShop.position = finalShopPos;
         if (walkingAudioSource != null) walkingAudioSource.Stop();
+
+        // 10 seconds are up: Stop parents' walking animations (transition to Idle)
+        if (dadAnimator != null) dadAnimator.SetBool("isWalking", false);
+        if (momAnimator != null) momAnimator.SetBool("isWalking", false); // 엄마 걷기 애니메이션 정지
 
         // ==========================================
         // SCENE 2: Door Opens
@@ -91,7 +112,6 @@ public class Act1Director : MonoBehaviour
         // ==========================================
         // SCENE 4: LIGHTS OUT (Immediately after push ends)
         // ==========================================
-        // 💡 Turn off all lights right after the player is pushed inside
         Light[] allSceneLights = FindObjectsOfType<Light>();
         foreach (Light lightObj in allSceneLights)
         {
