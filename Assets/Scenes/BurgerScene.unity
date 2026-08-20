@@ -8085,6 +8085,7 @@ MonoBehaviour:
   restaurantEnvironment: {fileID: 234293065}
   explosionEffect: {fileID: 655769796}
   explosionSound: {fileID: 8300000, guid: 854ded900dcead0479dd38a0ffee7f86, type: 3}
+  celebrationBGM: {fileID: 8300000, guid: 24c834719843e9247adea40fc566b40b, type: 3}
   celebrationOMans:
   - {fileID: 1835303660}
   - {fileID: 664315552}
