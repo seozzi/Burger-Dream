@@ -14,10 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/OutdoorScene.unity
     guid: 7f91ecdaeb89afd4da229b4ba511f86b
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/BurgerScene.unity
     guid: 8f2156583d63a5c48acdae9e2c99a32e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BurgerSceneJaemin.unity
     guid: 06ba1b71470cfae40863dd7e562b8a7b
   m_configObjects:
