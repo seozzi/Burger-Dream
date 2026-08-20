@@ -30,16 +30,11 @@ public class MetaQuestClimbing : MonoBehaviour
     [Header("Layers")]
     public LayerMask climbableLayers = ~0;
 
-    // ==========================================
-    // 새로 추가된 사운드 설정 부분
-    // ==========================================
     [Header("Sounds")]
-    [Tooltip("일반 홀드(또는 이미 미끄러진 가짜 홀드)를 잡았을 때 나는 소리")]
     public AudioClip normalClimbingSound;
-    
-    [Tooltip("가짜 홀드가 처음 미끄러질 때 나는 소리")]
     public AudioClip slippingSound;
-    // ==========================================
+    public AudioClip climbingBGM;
+    private bool hasStartedClimbing = false;
 
     private ClimbingHand left;
     private ClimbingHand right;
@@ -76,18 +71,26 @@ public class MetaQuestClimbing : MonoBehaviour
             hand.gripping = true;
             hand.lastLocalPosition = hand.controller.localPosition;
 
+            // 최초 등반 시 BGM 재생
+            if (!hasStartedClimbing)
+            {
+                hasStartedClimbing = true;
+                if (climbingBGM != null && SoundManager.Instance != null)
+                {
+                    SoundManager.Instance.PlayBGM(climbingBGM);
+                }
+            }
+
             FakeClimbingHold fakeHold = hand.touchedClimbable.GetComponentInParent<FakeClimbingHold>();
             
-            // 추가된 로직: 가짜 홀드이고, 아직 미끄러지지 않은 상태일 때
             if (fakeHold != null && !fakeHold.HasFallen)
             {
                 fakeHold.TriggerFall(xrRig);
-                PlaySound(slippingSound); // 미끄러지는 사운드 재생
+                PlaySound(slippingSound); 
             }
-            // 일반 홀드이거나, 이미 미끄러져서 일반 홀드가 된 가짜 홀드일 때
             else 
             {
-                PlaySound(normalClimbingSound); // 일반 등반 사운드 재생
+                PlaySound(normalClimbingSound); 
             }
         }
 
@@ -97,14 +100,12 @@ public class MetaQuestClimbing : MonoBehaviour
             hand.gripping = false;
         }
 
-        // If the hand is no longer touching a climbable surface
         if (hand.gripping && hand.touchedClimbable == null)
         {
             hand.gripping = false;
         }
     }
 
-    // 사운드 재생을 위한 헬퍼 함수
     private void PlaySound(AudioClip clip)
     {
         if (clip != null && SoundManager.Instance != null)

@@ -8,32 +8,36 @@ public class FinaleManager : MonoBehaviour
     public AudioClip explosionSound;
 
     [Header("축하 사절단 설정")]
-    // 씬에 미리 배치해 둔 O Man 오브젝트들을 연결할 배열입니다.
     public GameObject[] celebrationOMans; 
 
     public void TriggerRestaurantExplosion()
     {
-        // 1. 기존 폭발 로직
+        // 파티클 폭발 및 식당 끄기
         if (explosionEffect != null) explosionEffect.Play();
         if (restaurantEnvironment != null) restaurantEnvironment.SetActive(false);
+        
+        // 폭발 사운드 재생
         if (explosionSound != null && SoundManager.Instance != null)
         {
-            SoundManager.Instance.PlaySFX(explosionSound); //[cite: 1]
+            SoundManager.Instance.PlaySFX(explosionSound);
         }
 
-        // 2. 미리 배치된 축하 사절단 등장시키기
+        // 재생 중이던 클라이밍 BGM 멈추기
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.StopBGM();
+        }
+
+        // 사절단 등장
         ShowCongratulators();
     }
 
     private void ShowCongratulators()
     {
-        // 배열에 등록된 O Man 오브젝트들을 차례대로 활성화합니다.
         foreach (GameObject oMan in celebrationOMans)
         {
             if (oMan != null)
             {
-                // 비활성화되어 있던 오브젝트를 켭니다. 
-                // 켜지는 순간 Animator가 작동하며 박수 애니메이션이 자동 재생됩니다.
                 oMan.SetActive(true); 
             }
         }
