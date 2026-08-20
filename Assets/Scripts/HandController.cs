@@ -17,9 +17,10 @@ public class HandController : MonoBehaviour
     [SerializeField] private float gripBlendSpeed = 12f;
 
     private Animator animator;
-    private static readonly int TriggerParam = Animator.StringToHash("Trigger");
 
-    private float currentTrigger;
+    private static readonly int AnimatorGripParam = Animator.StringToHash("Grip");
+
+    private float currentGrip;
     private bool isClimbGripping;
 
     private void Awake()
@@ -53,34 +54,35 @@ public class HandController : MonoBehaviour
 
     private void UpdatePosture()
     {
-        float targetTrigger = 0f;
+        float targetGrip = 0f;
 
         if (isClimbGripping)
         {
-            targetTrigger = 1f;
+            targetGrip = 1f;
         }
         else
         {
             XRNode node = handType == HandType.Left ? XRNode.LeftHand : XRNode.RightHand;
             InputDevice device = InputDevices.GetDeviceAtXRNode(node);
 
-            if (device.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue))
+            // Changed from CommonUsages.trigger to CommonUsages.grip (Middle Finger)
+            if (device.TryGetFeatureValue(CommonUsages.grip, out float gripValue))
             {
-                targetTrigger = triggerValue;
+                targetGrip = gripValue;
 
-                if (triggerValue > 0.05f)
+                if (gripValue > 0.05f)
                 {
-                    Debug.Log($"[{handType}] 검지 Trigger 값: {triggerValue}");
+                    Debug.Log($"[{handType}] Middle Finger Grip Value: {gripValue}");
                 }
             }
         }
 
-        currentTrigger = Mathf.MoveTowards(currentTrigger, targetTrigger, gripBlendSpeed * Time.deltaTime);
-        animator.SetFloat(TriggerParam, currentTrigger);
+        currentGrip = Mathf.MoveTowards(currentGrip, targetGrip, gripBlendSpeed * Time.deltaTime);
+        animator.SetFloat(AnimatorGripParam, currentGrip);
     }
 
     // =================================================================
-    // 🚨 아래부터가 다른 스크립트(Climbing 등)와 통신하기 위해 꼭 필요한 함수들입니다! 🚨
+    // 🚨 Essential functions for communicating with other scripts (e.g., Climbing) 🚨
     // =================================================================
 
     public void SetClimbGripping(bool gripping)
@@ -90,8 +92,8 @@ public class HandController : MonoBehaviour
 
     public bool IsClimbGripping => isClimbGripping;
 
-    // 외부에서 Grip(Trigger) 값을 요구할 때 현재 값을 넘겨줍니다.
-    public float CurrentGrip => currentTrigger;
+    // Returns the current grip value when requested by external scripts
+    public float CurrentGrip => currentGrip;
 
     public float RawGripInput
     {
@@ -100,9 +102,10 @@ public class HandController : MonoBehaviour
             XRNode node = handType == HandType.Left ? XRNode.LeftHand : XRNode.RightHand;
             InputDevice device = InputDevices.GetDeviceAtXRNode(node);
 
-            if (device.TryGetFeatureValue(CommonUsages.trigger, out float triggerValue))
+            // Changed from CommonUsages.trigger to CommonUsages.grip (Middle Finger)
+            if (device.TryGetFeatureValue(CommonUsages.grip, out float gripValue))
             {
-                return triggerValue;
+                return gripValue;
             }
             return 0f;
         }
