@@ -6,10 +6,10 @@ public class FinaleManager : MonoBehaviour
     [Header("오브젝트 할당")]
     public GameObject restaurantEnvironment;
     public ParticleSystem explosionEffect;
-    public AudioClip explosionSound; // 기존 폭발(뾰잉) 사운드
+    public AudioClip explosionSound;
 
     [Header("축하 사운드 설정")]
-    public AudioClip celebrationBGM; // 새로 추가된 축하 BGM
+    public AudioClip celebrationBGM;
 
     [Header("축하 사절단 설정")]
     public GameObject[] celebrationOMans;
@@ -20,9 +20,16 @@ public class FinaleManager : MonoBehaviour
     public string[] foodNames;
     public GameObject textLabelPrefab;
 
-    private const float FIXED_RADIUS = 8.5f;
-    private const float FIXED_HEIGHT = 8.2f;
-    private const float FIXED_Z_ROTATION = -31.153f;
+    // ==========================================
+    // 상수(const)였던 값들을 인스펙터에서 조절 가능하도록 변경했습니다.
+    // ==========================================
+    [Header("미끄럼틀 생성 위치 조절")]
+    [Tooltip("버거 중심으로부터의 거리 (기존: 8.5)")]
+    public float slideRadius = 8.5f;
+    [Tooltip("버거 중심 기준 미끄럼틀의 높이 (기존: 8.2)")]
+    public float slideHeight = 8.2f;
+    [Tooltip("미끄럼틀의 기울기 각도 (기존: -31.153)")]
+    public float slideZRotation = -31.153f;
 
     private bool hasTriggered = false;
 
@@ -36,13 +43,11 @@ public class FinaleManager : MonoBehaviour
         if (explosionEffect != null) explosionEffect.Play();
         if (restaurantEnvironment != null) restaurantEnvironment.SetActive(false);
 
-        // 1. 폭발 사운드 재생 (SFX)
         if (explosionSound != null && SoundManager.Instance != null)
         {
             SoundManager.Instance.PlaySFX(explosionSound);
         }
 
-        // 2. 기존 BGM 중지 및 축하 BGM 재생
         if (SoundManager.Instance != null)
         {
             SoundManager.Instance.StopBGM();
@@ -52,10 +57,7 @@ public class FinaleManager : MonoBehaviour
             }
         }
 
-        // 3. 축하 사절단 등장
         ShowCongratulators();
-
-        // 4. 슬라이드 및 음식 생성
         SpawnSlidesAndFood();
     }
 
@@ -110,7 +112,6 @@ public class FinaleManager : MonoBehaviour
 
     private void SpawnSlidesAndFood()
     {
-        // 씬에서 "Burger" 이름을 가진 오브젝트를 자동으로 탐색합니다.
         Transform burgerCenter = null;
         GameObject burgerObj = GameObject.Find("Burger");
         if (burgerObj != null)
@@ -119,9 +120,7 @@ public class FinaleManager : MonoBehaviour
         }
         else
         {
-            // 만약 "Burger"라는 이름이 없다면 매니저 자신의 위치를 임시 중앙으로 사용
             burgerCenter = this.transform;
-            Debug.LogWarning("씬에서 'Burger' 오브젝트를 찾지 못해 FinaleManager의 위치를 중앙으로 사용합니다.");
         }
 
         for (int i = 0; i < 8; i++)
@@ -129,21 +128,20 @@ public class FinaleManager : MonoBehaviour
             float angleDeg = i * 45f;
             float angleRad = angleDeg * Mathf.Deg2Rad;
 
-            float x = Mathf.Sin(angleRad) * FIXED_RADIUS;
-            float z = Mathf.Cos(angleRad) * FIXED_RADIUS;
+            // 새로 만든 변수를 적용합니다.
+            float x = Mathf.Sin(angleRad) * slideRadius;
+            float z = Mathf.Cos(angleRad) * slideRadius;
 
-            // 1. 슬라이드 생성
-            Vector3 slideSpawnPos = burgerCenter.position + new Vector3(x, FIXED_HEIGHT, z);
+            Vector3 slideSpawnPos = burgerCenter.position + new Vector3(x, slideHeight, z);
 
             Vector3 directionFromCenter = (slideSpawnPos - burgerCenter.position).normalized;
             directionFromCenter.y = 0;
 
             Quaternion lookRotation = Quaternion.LookRotation(directionFromCenter);
-            Quaternion finalRotation = lookRotation * Quaternion.Euler(0f, -90f, FIXED_Z_ROTATION);
+            Quaternion finalRotation = lookRotation * Quaternion.Euler(0f, -90f, slideZRotation);
 
             GameObject slide = Instantiate(baconSlidePrefab, slideSpawnPos, finalRotation);
 
-            // 미끄럼틀 메시 콜라이더 세팅
             MeshCollider slideCollider = slide.GetComponent<MeshCollider>();
             if (slideCollider == null)
             {
@@ -151,7 +149,6 @@ public class FinaleManager : MonoBehaviour
             }
             slideCollider.convex = false;
 
-            // SlideTrigger 생성 (정밀 대칭 위치, SphereCollider, 라이더 부착)
             GameObject triggerObj = new GameObject("SlideTrigger");
             triggerObj.transform.SetParent(slide.transform);
             triggerObj.transform.localPosition = new Vector3(-11.33f, 9.67f, -0.05f);
@@ -162,7 +159,6 @@ public class FinaleManager : MonoBehaviour
 
             triggerObj.AddComponent<BaconSlideRider>();
 
-            // 2. 음식 및 텍스트 생성
             if (foodPrefabs != null && foodPrefabs.Length > 0)
             {
                 int foodIndex = i % foodPrefabs.Length;
@@ -174,7 +170,6 @@ public class FinaleManager : MonoBehaviour
                     GameObject food = Instantiate(foodPrefabs[foodIndex], foodSpawnPos, foodRotation);
                     food.transform.localScale = new Vector3(4f, 4f, 4f);
 
-                    // 3. 텍스트 라벨 생성
                     if (textLabelPrefab != null && foodNames != null && foodNames.Length > foodIndex)
                     {
                         Vector3 textSpawnPos = foodSpawnPos + Vector3.up * 0.8f;
