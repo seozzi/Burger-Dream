@@ -4,7 +4,7 @@ using System.Collections;
 public class BaconSlideRider : MonoBehaviour
 {
     [Header("슬라이드 탑(입구) 지정")]
-    public Transform slideStartPoint; // 미끄럼틀 시작점[cite: 4]
+    public Transform slideStartPoint;
 
     private bool isRiding = false;
 
@@ -35,34 +35,59 @@ public class BaconSlideRider : MonoBehaviour
     {
         isRiding = true;
 
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.StopBGM();
+        }
+
         CharacterController cc = player.GetComponent<CharacterController>();
         Rigidbody rb = player.GetComponent<Rigidbody>();
         MetaQuestClimbing climbing = player.GetComponent<MetaQuestClimbing>();
         if (climbing == null) climbing = player.GetComponentInChildren<MetaQuestClimbing>();
 
-        // 1. 기존 조작 및 클라이밍 끄기 (미끄럼틀 타는 내내 꺼야 합니다!)
         if (climbing != null) climbing.enabled = false;
         if (cc != null) cc.enabled = false; 
 
-        // 2. 물리 썰매(SphereCollider) 임시 장착
         SphereCollider sledCollider = player.GetComponent<SphereCollider>();
         if (sledCollider == null)
         {
             sledCollider = player.AddComponent<SphereCollider>();
             sledCollider.radius = 0.3f;
-            sledCollider.center = new Vector3(0, 0.4f, 0); // 발끝에 썰매 부착
+            sledCollider.center = new Vector3(0, 0.4f, 0); 
         }
         sledCollider.enabled = true;
 
+        RigidbodyConstraints originalConstraints = RigidbodyConstraints.None;
+
         if (rb != null)
         {
+            originalConstraints = rb.constraints; 
             rb.isKinematic = true;
-            // 얇은 미끄럼틀을 고속으로 뚫고 나가는 버그 방지
             rb.collisionDetectionMode = CollisionDetectionMode.Continuous; 
+            rb.constraints = RigidbodyConstraints.FreezeRotation; 
         }
 
-        // 3. 입구 정위치로 부드럽게 흡입
-        Vector3 targetPos = slideStartPoint != null ? slideStartPoint.position : transform.position + transform.up * 2f;
+        Vector3 basePos = slideStartPoint != null ? slideStartPoint.position : transform.position + transform.up * 2f;
+        
+        // 💡 [핵심 수정] 버거 중심에서 바깥쪽(미끄럼틀 진행 방향)으로 향하는 벡터를 계산합니다.
+        Vector3 outwardDirection = Vector3.zero;
+        GameObject burgerObj = GameObject.Find("Burger");
+        if (burgerObj != null)
+        {
+            outwardDirection = (transform.position - burgerObj.transform.position).normalized;
+            outwardDirection.y = 0; // 수평 방향만 적용하기 위해 y축 무시
+            outwardDirection.Normalize();
+        }
+        else
+        {
+            outwardDirection = transform.forward;
+            outwardDirection.y = 0;
+            outwardDirection.Normalize();
+        }
+
+        // 위로 1.0f 띄우고, 바깥쪽으로 1.0f 밀어낸 위치를 최종 목표 지점으로 설정합니다.
+        Vector3 targetPos = basePos + (Vector3.up * 1.0f) + (outwardDirection * 1.0f); 
+
         float elapsedTime = 0f;
         Vector3 startPos = player.transform.position;
 
@@ -74,7 +99,6 @@ public class BaconSlideRider : MonoBehaviour
         }
         player.transform.position = targetPos;
 
-        // 4. 낙하 시작 (물리 썰매를 타고 미끄러짐)
         if (rb != null)
         {
             rb.isKinematic = false;
@@ -83,7 +107,6 @@ public class BaconSlideRider : MonoBehaviour
 
         Debug.Log("미끄럼틀 탑승 완료! 시원하게 내려갑니다 🚀");
 
-        // 5. 바닥(Y좌표 2.0 이하)에 도착하거나 5초가 지날 때까지 대기
         float rideTimer = 0f;
         while (player.transform.position.y > 2.0f && rideTimer < 5.0f)
         {
@@ -91,16 +114,16 @@ public class BaconSlideRider : MonoBehaviour
             yield return null;
         }
 
-        // 6. 하차 및 원래 상태로 복구
         Debug.Log("바닥 도착! 미끄럼틀 하차 완료.");
         if (rb != null)
         {
             rb.isKinematic = true;
             rb.useGravity = false;
+            rb.constraints = originalConstraints; 
         }
-        if (sledCollider != null) sledCollider.enabled = false; // 썰매 없애기
-        if (cc != null) cc.enabled = true; // 걷기 복구
-        if (climbing != null) climbing.enabled = true; // 클라이밍 복구
+        if (sledCollider != null) sledCollider.enabled = false; 
+        if (cc != null) cc.enabled = true; 
+        if (climbing != null) climbing.enabled = true; 
 
         isRiding = false;
     }
