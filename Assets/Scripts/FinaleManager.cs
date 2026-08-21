@@ -20,9 +20,13 @@ public class FinaleManager : MonoBehaviour
     public string[] foodNames;
     public GameObject textLabelPrefab;
 
-    private const float FIXED_RADIUS = 8.5f;
-    private const float FIXED_HEIGHT = 8.2f;
-    private const float FIXED_Z_ROTATION = -31.153f;
+    [Header("미끄럼틀 생성 위치 조절")]
+    [Tooltip("버거 중심으로부터의 거리 (기존: 8.5)")]
+    public float slideRadius = 8.5f;
+    [Tooltip("버거 중심 기준 미끄럼틀의 높이 (기존: 8.2)")]
+    public float slideHeight = 8.2f;
+    [Tooltip("미끄럼틀의 기울기 각도 (기존: -31.153)")]
+    public float slideZRotation = -31.153f;
 
     private bool hasTriggered = false;
 
@@ -129,15 +133,17 @@ public class FinaleManager : MonoBehaviour
             float angleDeg = i * 45f;
             float angleRad = angleDeg * Mathf.Deg2Rad;
 
-            float x = Mathf.Sin(angleRad) * FIXED_RADIUS;
-            float z = Mathf.Cos(angleRad) * FIXED_RADIUS;
+            float x = Mathf.Sin(angleRad) * slideRadius;
+            float z = Mathf.Cos(angleRad) * slideRadius;
 
-            Vector3 slideSpawnPos = burgerCenter.position + new Vector3(x, FIXED_HEIGHT, z);
+            // 유저님이 변경하신 slideHeight로 통합 적용 완료!
+            Vector3 slideSpawnPos = burgerCenter.position + new Vector3(x, slideHeight, z);
+
             Vector3 directionFromCenter = (slideSpawnPos - burgerCenter.position).normalized;
             directionFromCenter.y = 0;
 
             Quaternion lookRotation = Quaternion.LookRotation(directionFromCenter);
-            Quaternion finalRotation = lookRotation * Quaternion.Euler(0f, -90f, FIXED_Z_ROTATION);
+            Quaternion finalRotation = lookRotation * Quaternion.Euler(0f, -90f, slideZRotation);
 
             GameObject slide = Instantiate(baconSlidePrefab, slideSpawnPos, finalRotation);
 
@@ -151,7 +157,7 @@ public class FinaleManager : MonoBehaviour
 
             SphereCollider triggerSphere = triggerObj.AddComponent<SphereCollider>();
             triggerSphere.isTrigger = true;
-            triggerSphere.radius = 1.8f; // 반지름 1.8 적용
+            triggerSphere.radius = 1.8f;
 
             triggerObj.AddComponent<BaconSlideRider>();
 

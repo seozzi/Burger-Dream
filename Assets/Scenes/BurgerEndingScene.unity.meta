@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/BurgerEndingScene.unity.meta
 guid: 640619abcca34420e856f8a2c2c204c0
+========
+guid: 339804ba0e081ae4095178aea107f353
+>>>>>>>> 62c7dde969989cd56e0f69847739bbc51e5d52d6:Assets/_Recovery/0 (4).unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

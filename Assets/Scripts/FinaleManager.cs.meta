@@ -1,17 +1,2 @@
 fileFormatVersion: 2
 guid: 457aa3cea9e0dc04f8434f54d4b05f39
-MonoImporter:
-  externalObjects: {}
-  serializedVersion: 2
-  defaultReferences:
-  - restaurantEnvironment: {fileID: 919132149155446097, guid: 6aa9be82469aa490f8a34b12aed74c83, type: 3}
-  - explosionEffect: {instanceID: 0}
-  - explosionSound: {fileID: 8300000, guid: 854ded900dcead0479dd38a0ffee7f86, type: 3}
-  - celebrationBGM: {fileID: 8300000, guid: 24c834719843e9247adea40fc566b40b, type: 3}
-  - baconSlidePrefab: {fileID: 8919934127225428127, guid: a11cf565281f4864d8fe72333eaa8dfd, type: 3}
-  - textLabelPrefab: {fileID: 5376935034856838711, guid: 5d4ea7754c4c44328aa28d2e34a98113, type: 3}
-  executionOrder: 0
-  icon: {instanceID: 0}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
