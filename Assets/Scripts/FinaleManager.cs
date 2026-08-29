@@ -157,7 +157,7 @@ public class FinaleManager : MonoBehaviour
 
             SphereCollider triggerSphere = triggerObj.AddComponent<SphereCollider>();
             triggerSphere.isTrigger = true;
-            triggerSphere.radius = 1.8f;
+            triggerSphere.radius = 1.2f;
 
             triggerObj.AddComponent<BaconSlideRider>();
 

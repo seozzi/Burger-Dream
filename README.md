@@ -1,45 +1,50 @@
-# 🍔 Burger-Dream (VR Experience)
+# 🍔 Burger-Dream: A Taste of the Past
 
-![Burger-Dream Banner](docs/images/banner.png) 
-*(Please replace this placeholder with your actual banner image)*
+![Demo Day Poster](docs/images/poster.jpg)
 
-A VR interactive scene project designed for the Meta Quest. Built with Unity and the XR Interaction Toolkit, it features a tense "Act 1" opening sequence where the player is forcefully pulled into an eerie, unknown space—the Burger Shop.
+**Burger-Dream** is a narrative-driven VR experience developed for the **<Introduction to Virtual Reality and Artificial Intelligence>** summer school course at **Aalto University 2026** (School of Arts, Design and Architecture). Created as a Group 2 project under the Demo Day theme **"OLD WORLD,"** this experience transforms a nostalgic childhood favorite into a surreal, inescapable journey.
+
+## 📖 The Story & Concept
+
+**Theme: A Taste of the Past**
+_The Old World is a personal past timezone, a childhood favorite made larger, representing more limited life choices. The user must navigate this space, an act of conquering past limitations to eventually unlock a new world of infinite possibilities._
+
+- **The Encounter:** You find yourself stranded in an eerie, unknown space, only to realize that a colossal, unsettling Burger Shop is slowly and deliberately moving toward you.
+- **The Abduction:** There is no escape. As the heavy doors grind open, a terrifying, unseen force violently drags you across the threshold and deep into the belly of the building.
+- **The Climb:** The moment you are pulled inside, the doors slam shut and every light in the world is instantly severed. Trapped in pitch-black darkness, you must prepare to face and climb an enormous, towering burger to unlock a new world of possibilities.
 
 ## 🎬 Demo / Gameplay
 
-[![Burger-Dream Act 1 Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
-*(Click the thumbnail above to watch the gameplay. Replace `YOUR_VIDEO_ID` with your actual YouTube video ID)*
-
-## ✨ Key Features
-
-* **Cinematic Sequence (`Act1Director.cs`):** An imposing opening where a massive burger shop slowly approaches the player.
-* **Forced Movement Action:** The moment the door opens, the player is forcefully pushed along the Z-axis into the shop, building high tension.
-* **Dynamic Environment Control:** A complete blackout sequence where all scene lights and the skybox are instantly disabled the moment the player is dragged inside.
-* **Spatial Audio:** Enhances immersion by synchronizing approaching footsteps, heavy door mechanics, and physical sliding noises through a dedicated `SoundManager`.
-* **VR Optimization:** Utilizes Unity XR Management for smooth, pitch-black scene transitions (moving to `BurgerScene`).
-
-## 🛠 Tech Stack
-
-* **Engine:** Unity (Recommended: 6000.5.x)
-* **Frameworks:** Unity XR Interaction Toolkit, Meta XR SDK
-* **Language:** C#
-
-## 📸 Screenshots
-
 <div align="center">
-  <img src="docs/images/screenshot1.png" width="45%" alt="Shop Approaching">
-  <img src="docs/images/screenshot2.png" width="45%" alt="Lights Out Sequence">
+  <a href="https://www.youtube.com/watch?v=yYhoXVhg9k8">
+    <img src="https://img.youtube.com/vi/yYhoXVhg9k8/maxresdefault.jpg" width="32%" alt="Part 1: Entering the Burger Shop">
+  </a>
+  <a href="https://www.youtube.com/watch?v=1sGqysRub8Y">
+    <img src="https://img.youtube.com/vi/1sGqysRub8Y/maxresdefault.jpg" width="32%" alt="Part 2: Climbing the Enormous Burger">
+  </a>
+  <a href="https://www.youtube.com/watch?v=Yw54A_NcqLw">
+    <img src="https://img.youtube.com/vi/Yw54A_NcqLw/maxresdefault.jpg" width="32%" alt="Part 3: Ending Credits">
+  </a>
 </div>
 
-> *Left: The Burger Shop approaching the player / Right: The pitch-black sequence right after entry*
+> _1. Entering the colossus (OutdoorScene) / 2. Conquering the layers (BurgerScene) / 3. The journey's end (Ending Credits)_
 
-## 🚀 Getting Started
+## 🛠 Tech Stack & Setup
 
-### Prerequisites
-* Unity Hub and **Unity 6000.5.7f1** or higher.
-* Meta Quest headset and a PC VR connection (e.g., Quest Link).
+- **Engine:** Unity (Recommended: 6000.5.x) & C#
+- **Frameworks:** Unity XR Interaction Toolkit, Meta XR SDK
+- **Setup:** Clone the repository, open with Unity Hub, ensure XR Plug-in Management is configured for Meta Quest, and hit Play in the `OutdoorScene`.
 
-### Installation & Run
-1. Clone this repository to your local machine:
-   ```bash
-   git clone [https://github.com/YOUR_USERNAME/Burger-Dream.git](https://github.com/YOUR_USERNAME/Burger-Dream.git)
+## 🤝 Credits
+
+<div align="center">
+  <img src="docs/images/Ending_Credits.jpg" width="80%" alt="Thanks for playing - Team Burger Dream">
+</div>
+
+**Created by Aalto University 2026 Summer School Students (VR Group 2)**
+Thank you for playing and exploring the Old World with us!
+
+- **Jihee** - Unity Developer / XR Programming
+- **Kim** - 3D Asset Curation / Environment Design
+- **Jaemin** - Unity Developer / XR Programming
+- **Yuki** - Audio Curation / Sound Design
