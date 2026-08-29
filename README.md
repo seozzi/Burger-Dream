@@ -2,7 +2,9 @@
 
 ![Demo Day Poster](docs/images/poster.jpg)
 
-**Burger-Dream** is a narrative-driven VR experience developed for the **<Introduction to Virtual Reality and Artificial Intelligence>** summer school course at **Aalto University 2026** (School of Arts, Design and Architecture). Created as a Group 2 project under the Demo Day theme **"OLD WORLD,"** this experience transforms a nostalgic childhood favorite into a surreal, inescapable journey.
+**Burger-Dream** is a narrative-driven VR experience developed for the **<Introduction to Virtual Reality and Artificial Intelligence>** summer school course at **Aalto University 2026** (School of Arts, Design and Architecture).
+
+Created as a Group 2 project under the Demo Day theme **"OLD WORLD,"** this experience transforms a nostalgic childhood favorite into a surreal, inescapable journey.
 
 ## 📖 The Story & Concept
 
@@ -15,19 +17,33 @@ _The Old World is a personal past timezone, a childhood favorite made larger, re
 
 ## 🎬 Demo / Gameplay
 
-<div align="center">
-  <a href="https://www.youtube.com/watch?v=yYhoXVhg9k8">
-    <img src="https://img.youtube.com/vi/yYhoXVhg9k8/maxresdefault.jpg" width="32%" alt="Part 1: Entering the Burger Shop">
-  </a>
-  <a href="https://www.youtube.com/watch?v=1sGqysRub8Y">
-    <img src="https://img.youtube.com/vi/1sGqysRub8Y/maxresdefault.jpg" width="32%" alt="Part 2: Climbing the Enormous Burger">
-  </a>
-  <a href="https://www.youtube.com/watch?v=Yw54A_NcqLw">
-    <img src="https://img.youtube.com/vi/Yw54A_NcqLw/maxresdefault.jpg" width="32%" alt="Part 3: Ending Credits">
-  </a>
-</div>
+**Part 1: The Encounter (OutdoorScene)**
+<br>
+<a href="https://www.youtube.com/watch?v=yYhoXVhg9k8">
+<img src="https://img.youtube.com/vi/yYhoXVhg9k8/maxresdefault.jpg" width="60%" alt="Part 1: Entering the Burger Shop">
+</a>
 
-> _1. Entering the colossus (OutdoorScene) / 2. Conquering the layers (BurgerScene) / 3. The journey's end (Ending Credits)_
+> Stranded in an eerie, unknown space, you watch as a colossal Burger Shop slowly approaches. There is no escape—an unseen force violently drags you inside before cutting all the lights.
+
+<br>
+
+**Part 2: The Climb (BurgerScene)**
+<br>
+<a href="https://www.youtube.com/watch?v=1sGqysRub8Y">
+<img src="https://img.youtube.com/vi/1sGqysRub8Y/maxresdefault.jpg" width="60%" alt="Part 2: Climbing the Enormous Burger">
+</a>
+
+> Trapped in the colossal interior, you meet a crucial ally: O-man. With his cheering thumbs-up, you begin the daunting vertical climb up the enormous burger tower to conquer past limitations.
+
+<br>
+
+**Part 3: The Journey's End (Ending Credits)**
+<br>
+<a href="https://www.youtube.com/watch?v=Yw54A_NcqLw">
+<img src="https://img.youtube.com/vi/Yw54A_NcqLw/maxresdefault.jpg" width="60%" alt="Part 3: Ending Credits">
+</a>
+
+> The journey's end. Thank you for playing and exploring the 'Old World' with us! Created by Jihee, Kim, Jaemin, and Yuki.
 
 ## 🛠 Tech Stack & Setup
 
@@ -42,6 +58,7 @@ _The Old World is a personal past timezone, a childhood favorite made larger, re
 </div>
 
 **Created by Aalto University 2026 Summer School Students (VR Group 2)**
+
 Thank you for playing and exploring the Old World with us!
 
 - **Jihee** - Unity Developer / XR Programming
