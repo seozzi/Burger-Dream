@@ -30,7 +30,7 @@ _The Old World is a personal past timezone, a childhood favorite made larger, re
 **Part 2: The Climb (BurgerScene)**
 <br>
 <a href="https://www.youtube.com/watch?v=1sGqysRub8Y">
-<img src="https://img.youtube.com/vi/1sGqysRub8Y/maxresdefault.jpg" width="60%" alt="Part 2: Climbing the Enormous Burger">
+<img src="https://img.youtube.com/vi/1sGqysRub8Y/hqdefault.jpg" width="60%" alt="Part 2: Climbing the Enormous Burger">
 </a>
 
 > Trapped in the colossal interior, you meet a crucial ally: O-man. With his cheering thumbs-up, you begin the daunting vertical climb up the enormous burger tower to conquer past limitations.
