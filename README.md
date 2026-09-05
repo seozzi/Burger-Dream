@@ -15,7 +15,7 @@ _The Old World is a personal past timezone, a childhood favorite made larger, re
 - **The Abduction:** There is no escape. As the heavy doors grind open, a terrifying, unseen force violently drags you across the threshold and deep into the belly of the building.
 - **The Climb:** The moment you are pulled inside, the doors slam shut and every light in the world is instantly severed. Trapped in pitch-black darkness, you must prepare to face and climb an enormous, towering burger to unlock a new world of possibilities.
 
-## 🎬 Demo / Gameplay
+## 🎥 Demo / Gameplay
 
 **Part 1: The Encounter (OutdoorScene)**
 <br>
@@ -44,6 +44,14 @@ _The Old World is a personal past timezone, a childhood favorite made larger, re
 </a>
 
 > The journey's end. Thank you for playing and exploring the 'Old World' with us! Created by Jihee, Kim, Jaemin, and Yuki.
+
+## 📥 Download & Play (APK)
+
+You can easily experience **Burger-Dream** on your Meta Quest headset!
+
+1. **Download the APK:** Go to the [Releases](../../releases) page of this repository and download the latest `Burger-Dream.apk` file.
+2. **Sideload to Headset:** Use [SideQuest](https://sidequestvr.com/setup-howto) or Meta Quest Developer Hub (MQDH) to install the APK file onto your Meta Quest device.
+3. **Launch the Game:** Put on your headset, navigate to **App Library** > **Search bar** > **Unknown Sources**, and launch **Burger-Dream** to start your journey.
 
 ## 🛠 Tech Stack & Setup
 

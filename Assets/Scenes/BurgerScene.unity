@@ -8410,8 +8410,8 @@ MonoBehaviour:
   - Sushi
   - Tteokbokki
   textLabelPrefab: {fileID: 5376935034856838711, guid: 5d4ea7754c4c44328aa28d2e34a98113, type: 3}
-  slideRadius: 8.5
-  slideHeight: 8.2
+  slideRadius: 8
+  slideHeight: 10.5
   slideZRotation: -31.153
 --- !u!4 &1016872516
 Transform:
